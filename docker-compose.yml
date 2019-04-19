@@ -28,7 +28,7 @@ services:
       bash -c "cd /simple-web-crawling && 
       pip install --upgrade pip && 
       pip install -r ./requirements.txt && 
-      python main.py"
+      python run.py"
 
 volumes:
   mongodb-data:

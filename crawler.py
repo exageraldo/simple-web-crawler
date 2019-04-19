@@ -2,7 +2,6 @@ from requests_html import HTMLSession
 from urllib.parse import urlsplit, urlparse
 from collections import deque
 from loguru import logger
-import os
 
 
 def _crawler(url):
@@ -26,7 +25,6 @@ def _crawler(url):
             continue
 
         parts = urlsplit(url)
-        base = f"{parts.netloc}"
         base_url = f'{parts.scheme}://{parts.netloc}'
         links = response.html.absolute_links
 
@@ -41,7 +39,7 @@ def _crawler(url):
         logger.info(f'Foreign: {len(foreign_urls)}')
 
         deque_urls += deque(local_urls)
-    
+
     result_data =  {
         'base_url': base_url,
         'processed_urls': list(processed_urls),
@@ -66,13 +64,3 @@ def run_crawler(url, allows_foreign_urls=False):
             broken_urls += crawled_data['broken_urls']
         all_links[crawled_data['base_url']] = crawled_data['']
     return all_links
-        
-
-
-if __name__ == "__main__":
-    url = os.getenv('ROOT_URL')
-    allows_foreign_urls = os.getenv('ALLOWS_FOREIGN_URLS', False)
-    if url:
-        run_crawler(url, allows_foreign_urls)
-    else:
-        logger.warning('NO ROOT_URL DEFINED')
