@@ -4,7 +4,7 @@ from collections import deque
 from loguru import logger
 
 
-def _crawler(url):
+def crawler(url):
     deque_urls = deque([url])
     processed_urls = set()
     broken_urls = set()
@@ -48,19 +48,3 @@ def _crawler(url):
     }
     logger.info(f'Processed: {len(result_data["processed_urls"])} ({len(result_data["broken_urls"])} broken)')
     return result_data
-
-
-def run_crawler(url, allows_foreign_urls=False):
-    deque_urls = deque([url])
-    broken_urls = []
-    all_links = {}
-    while deque_urls:
-        url = deque_urls.popleft()
-        if url in broken_urls:
-            continue
-        crawled_data = _crawler(url)
-        if allows_foreign_urls:
-            deque_urls += deque(crawled_data)
-            broken_urls += crawled_data['broken_urls']
-        all_links[crawled_data['base_url']] = crawled_data['']
-    return all_links
