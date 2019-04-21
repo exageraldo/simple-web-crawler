@@ -2,6 +2,7 @@ from crawler import crawler
 from loguru import logger
 from mongo import save_links
 import os
+from collections import deque
 
 
 def run_crawler(url, allows_foreign_urls=False):
