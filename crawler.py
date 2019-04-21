@@ -1,5 +1,5 @@
 from requests_html import HTMLSession
-from urllib.parse import urlsplit, urlparse
+from utils import remove_fragment, get_base_url
 from collections import deque
 from loguru import logger
 
@@ -24,19 +24,22 @@ def crawler(url):
             broken_urls.add(url)
             continue
 
-        parts = urlsplit(url)
-        base_url = f'{parts.scheme}://{parts.netloc}'
+        base_url = get_base_url(url)
         links = response.html.absolute_links
 
         for link in links:
-            if not (link in processed_urls) and not (link in deque_urls):
+            link = remove_fragment(link)
+            not_in_procesed = not (link in processed_urls)
+            not_in_deque = not (link in deque_urls)
+
+            if not_in_procesed and not_in_deque:
                 if link.startswith(base_url):
                     local_urls.add(link)
                 else:
-                    foreign_splited = urlsplit(link)
-                    foreign_base = f'{foreign_splited.scheme}://{foreign_splited.netloc}'
+                    foreign_base = get_base_url(link)
                     if foreign_base in foreign_urls:
-                        foreign_urls[foreign_base].append(link)
+                        if not (link in foreign_urls[foreign_base]):
+                            foreign_urls[foreign_base].append(link)
                     else:
                         foreign_urls[foreign_base] = [link]
 
