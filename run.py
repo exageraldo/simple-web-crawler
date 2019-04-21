@@ -15,9 +15,9 @@ def run_crawler(url, allows_foreign_urls=False):
             continue
         crawled_data = crawler(url)
         if allows_foreign_urls:
-            deque_urls += deque(crawled_data)
+            deque_urls += deque(crawled_data['foreign_urls'])
             broken_urls += crawled_data['broken_urls']
-        all_links[crawled_data['base_url']] = crawled_data['']
+        all_links[crawled_data['base_url']] = crawled_data
         save_links(
             crawled_data['base_url'],
             {   
