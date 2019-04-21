@@ -16,6 +16,8 @@ services:
   crawler:
     container_name: crawler
     image: python:3.6
+    depends_on:
+      - mongodb 
     environment:
       - ROOT_URL=https://url.com/
       - ALLOWS_FOREIGN_URLS=false
