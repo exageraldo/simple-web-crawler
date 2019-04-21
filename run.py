@@ -30,8 +30,15 @@ def run_crawler(url, allows_foreign_urls=False):
 
 
 if __name__ == "__main__":
+    def _str2bool(var):
+        if var.lower() in ['true', 'yes', '1']:
+            return true
+        return False
+
     url = os.getenv('ROOT_URL')
-    allows_foreign_urls = os.getenv('ALLOWS_FOREIGN_URLS', False)
+    allows_foreign_urls = _str2bool(
+        os.getenv('ALLOWS_FOREIGN_URLS', '')
+    )
     if url:
         run_crawler(url, allows_foreign_urls)
     else:
