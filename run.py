@@ -22,7 +22,8 @@ def run_crawler(url, allows_foreign_urls=False):
             crawled_data['base_url'],
             {   
                 'base_url': crawled_data['base_url'],
-                'processed_urls': crawled_data['processed_urls']
+                'processed_urls': crawled_data['processed_urls'],
+                'foreign_urls': crawled_data['foreign_urls']
             }
         )
     return all_links
