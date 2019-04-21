@@ -8,14 +8,13 @@ The idea is very simple:
 3.  Recursively process URL’s one by one until we exhaust the queue
 4.  Print results
 
-**Warning:** The way the program currently works crawling only local URL's, foreign URL's will take a **VERY** long time.
-
-Before execute the script, change the `url` variable (at line 7):
-```python
-url = "https://url.com/"
+Before execute the docker-compose, change the `ROOT_URL` variable (at line 22):
+```yml
+- ROOT_URL=https://url.com/
 ```
 
 And after, it's only run normally:
 ```
-python main.py
+docker-compose up --build
 ```
+**Warning**: currently, this program should be used exclusively to crawl local URLs, foreign URLs will take a **VERY** long time. If you want to change this setting, change `ALLOWS_FOREIGN_URLS` to `true`.
