@@ -25,7 +25,7 @@ services:
       - "5000:5000"
     volumes:
       - .:/simple-web-crawling
-    restart: always
+    restart: on-failure
     command: >
       bash -c "cd /simple-web-crawling && 
       pip install --upgrade pip && 
