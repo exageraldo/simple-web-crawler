@@ -20,16 +20,22 @@ def run_crawler(url, allows_foreign_urls=False):
             deque_urls += deque(crawled_data['foreign_urls'])
             broken_urls += crawled_data['broken_urls']
         all_links[crawled_data['base_url']] = crawled_data
+        data = {   
+            'base_url': crawled_data['base_url'],
+            'processed_urls': url_categorizer(
+                crawled_data['processed_urls']
+            ),
+            'updated_at': datetime.now()
+        }
+        
+        if not allows_foreign_urls:
+            data.update(
+                {'foreign_urls': crawled_data['foreign_urls']}
+            )
+
         save_links(
             crawled_data['base_url'],
-            {   
-                'base_url': crawled_data['base_url'],
-                'processed_urls': url_categorizer(
-                    crawled_data['processed_urls']
-                ),
-                'foreign_urls': crawled_data['foreign_urls'],
-                'updated_at': datetime.now()
-            }
+            data
         )
     return all_links
 
