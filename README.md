@@ -1,6 +1,6 @@
 # Simple Python Web Crawler
 
-This code is based in a [Ahad Sheriff's article](https://medium.freecodecamp.org/how-to-build-a-url-crawler-to-map-a-website-using-python-6a287be1da11). He used [BeautifulSoup](https://pypi.org/project/beautifulsoup4/) and [requests](http://docs.python-requests.org/en/master/) but I decided to use [requests_html](https://github.com/kennethreitz/requests-html) instead (and [loguru]() to prettify the outputs).
+This code is based in a [Ahad Sheriff's article](https://medium.freecodecamp.org/how-to-build-a-url-crawler-to-map-a-website-using-python-6a287be1da11). He used [BeautifulSoup](https://pypi.org/project/beautifulsoup4/) and [requests](http://docs.python-requests.org/en/master/) but I decided to use [requests_html](https://github.com/kennethreitz/requests-html) instead ([mongodb]() to save the data and [loguru](https://github.com/Delgan/loguru) to prettify the outputs).
 
 The idea is very simple:
 1.  Visit a web page
