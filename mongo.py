@@ -11,3 +11,14 @@ def save_links(base_url, data, db_name='crawler', collection_name='urls'):
         True
     )
     return document
+
+
+def save_foreing(foreign_base, data, db_name='crawler', collection_name='foreign'):
+    db = client[db_name]
+    collection = db[collection_name]
+    document = collection.update(
+        {'foreign_base': foreign_base},
+        {'$addToSet': data},
+        True
+    )
+    return document
