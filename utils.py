@@ -31,3 +31,14 @@ def url_categorizer(url_list):
         else:
             dict_result[group] = [url]
     return dict_result
+
+
+def base_categorizer(url_list):
+    dict_result = dict()
+    for url in url_list:
+        base = urlsplit(url).netloc
+        if base in dict_result:
+            dict_result[base].append(url)
+        else:
+            dict_result[base] = [url]
+    return dict_result
