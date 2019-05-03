@@ -11,3 +11,9 @@ def save_links(base_url, data, db_name='crawler', collection_name='urls'):
         True
     )
     return document
+
+
+def get_base(base_url=None, db_name='crawler', collection_name='urls'):
+    documents = collection.find(base_url, {'base_url': 1})
+    return list(documents)
+
