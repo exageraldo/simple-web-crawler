@@ -4,7 +4,7 @@ from mongo import save_links
 import os
 from datetime import datetime
 from collections import deque
-from utils import url_categorizer
+from utils import url_categorizer, base_categorizer
 
 
 def run_crawler(url, allows_foreign_urls=False):
@@ -27,16 +27,22 @@ def run_crawler(url, allows_foreign_urls=False):
             ),
             'updated_at': datetime.now()
         }
-        
-        if not allows_foreign_urls:
-            data.update(
-                {'foreign_urls': crawled_data['foreign_urls']}
-            )
-
-        save_links(
-            crawled_data['base_url'],
-            data
+        foreign_data = base_categorizer(
+            crawled_data['foreign_urls']
         )
+        save_data = {
+            key: url_categorizer(value)
+            for key, value in foreign_data
+        }
+        save_data.update({
+            crawled_data['base_url']: data
+        })
+
+        for key, value in save_data:
+            save_links(
+                key, # base url
+                value # all links
+            )
     return all_links
 
 
