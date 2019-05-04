@@ -6,7 +6,7 @@ The idea is very simple:
 1.  Visit a web page
 2.  Scrape all unique URL’s found on the webpage and add them to a queue
 3.  Recursively process URL’s one by one until we exhaust the queue
-4.  Print results
+4.  Save the results in a database
 
 Before execute the docker-compose, change the `ROOT_URL` variable (at line 22):
 ```yml
